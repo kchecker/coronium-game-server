@@ -6,7 +6,7 @@ Pulls will still be considered if improvements are made for the community.
 
 ## Contents
 
-This repo contains the server, which is hosted on Ubuntu 14.04 running [Luvit.io](http://luvit.io) and [Redis](redis.io). A CoronaSDK module is supplied for the client side.
+This repo contains the server, which is hosted on Ubuntu 14.04 running [Luvit.io](http://luvit.io) and [Redis](redis.io). A [Corona SDK](http://coronalabs.com) module is supplied for the client side.
 
 ## Docs
 
