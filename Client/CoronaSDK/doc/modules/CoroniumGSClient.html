@@ -1,0 +1,1059 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Coronium GS Client</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+    <link rel="stylesheet" href="http://bootswatch.com/simplex/bootstrap.min.css" type="text/css" />
+    <link rel="shortcut icon" href="/gs/imgs/coroniumgs-logo-16.png">
+</head>
+<style>
+body {
+    font-size: 1.70em;
+}
+</style>
+<body>
+
+<div class="container-fluid">
+
+
+<!-- Menu -->
+<div class="row">
+<div class="col-md-3" id="navigation">
+<br/>
+
+<div class="lead" style="font-size: 1.80em;"><a href="../index.html" style="font-weight:normal;">Coronium GS Client</a></div>
+
+<h4>Contents</h4>
+<ul class="list-group">
+<li class="list-group-item"><a href="#Functions">Functions</a></li>
+<li class="list-group-item"><a href="#Tables">Tables</a></li>
+<li class="list-group-item"><a href="#Game_Events">Game Events </a></li>
+<li class="list-group-item"><a href="#Client_Events">Client Events </a></li>
+</ul>
+
+
+<h4>Modules</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><strong>CoroniumGSClient</strong></li>
+  <li class="list-group-item"><a href="../modules/Utils.html">Utils</a></li>
+</ul>
+<h4>Topics</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><a href="../topics/license.md.html">license</a></li>
+  <li class="list-group-item"><a href="../topics/readme.md.html">readme</a></li>
+  <li class="list-group-item"><a href="../topics/development.md.html">development</a></li>
+</ul>
+<h4>Examples</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><a href="../examples/main-tpl.lua.html">main-tpl.lua</a></li>
+</ul>
+
+</div><!-- end navigation -->
+
+<div class="col-md-9" id="content">
+
+<h1>Module <code>CoroniumGSClient</code></h1>
+<p>Coronium GS Client</p>
+<p>
+
+</p>
+<!--     <h3>Info:</h3> -->
+    <ul class="list-inline text-muted" style="font-size: .85em;">
+        <li><span class="label label-default">Copyright</span> 2014 develephant</li>
+        <li><span class="label label-default">License</span> 2-clause BSD</li>
+        <li><span class="label label-default">Author</span> Chris Byerley</li>
+    </ul>
+
+
+<h2><a href="#Functions"><span class="text-muted">Functions</span></a></h2>
+<!-- <table class="function_list"> -->
+<table class="table table-bordered">
+	<tr>
+	<td class="name" nowrap><a href="#cancelGame">cancelGame ()</a></td>
+	<td class="summary">Cancel a <code>Game</code> in a waiting state.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#connect">connect (connection_table)</a></td>
+	<td class="summary">Connect to a listening game server instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#createGame">createGame (players_max, game_criteria)</a></td>
+	<td class="summary">Create a new game for other players to connect to.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#disconnect">disconnect ()</a></td>
+	<td class="summary">Closes the client connection.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getData">getData ()</a></td>
+	<td class="summary">Get current stored game data from server.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getGameId">getGameId ()</a></td>
+	<td class="summary">Get the client game id.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getPlayerHandle">getPlayerHandle ()</a></td>
+	<td class="summary">Get the client players connection handle.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getPlayerNum">getPlayerNum ()</a></td>
+	<td class="summary">Get the client player position.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#getPlayersInfo">getPlayersInfo ()</a></td>
+	<td class="summary">Get the game players info data table.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isConnected">isConnected ()</a></td>
+	<td class="summary">Check if the client is connected to the server</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#isGameRunning">isGameRunning ()</a></td>
+	<td class="summary">Check if the game is running and socket connected.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#joinGame">joinGame (players_max, game_criteria)</a></td>
+	<td class="summary">Join a game that was created with the <a href="../modules/CoroniumGSClient.html#createGame">createGame</a>  method.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#new">new ([asGlobal=false])</a></td>
+	<td class="summary">Create a new game client instance.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#p">p (tbl)</a></td>
+	<td class="summary">Pretty print table data.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#reconnect">reconnect ([reconnect_delay=3000])</a></td>
+	<td class="summary">Create a fresh connection to the server.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#send">send (data_tbl)</a></td>
+	<td class="summary">Send table data to the server.</td>
+	</tr>
+</table>
+<h2><a href="#Tables"><span class="text-muted">Tables</span></a></h2>
+<!-- <table class="function_list"> -->
+<table class="table table-bordered">
+	<tr>
+	<td class="name" nowrap><a href="#connection_table">connection_table</a></td>
+	<td class="summary">The connection table used for the <a href="../modules/CoroniumGSClient.html#connect">connect</a>  method.</td>
+	</tr>
+</table>
+<h2><a href="#Game_Events"><span class="text-muted">Game Events </span></a></h2>
+<!-- <table class="function_list"> -->
+<table class="table table-bordered">
+	<tr>
+	<td class="name" nowrap><a href="#GameCancel">GameCancel</a></td>
+	<td class="summary">The game has been canceled.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GameCreate">GameCreate</a></td>
+	<td class="summary">A game has been created.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GameData">GameData</a></td>
+	<td class="summary">Game data has been received.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GameDone">GameDone</a></td>
+	<td class="summary">The game is finished.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GameJoin">GameJoin</a></td>
+	<td class="summary">A player has joined the game.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GameLeave">GameLeave</a></td>
+	<td class="summary">A player has left the game.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#GameStart">GameStart</a></td>
+	<td class="summary">The game has started.</td>
+	</tr>
+</table>
+<h2><a href="#Client_Events"><span class="text-muted">Client Events </span></a></h2>
+<!-- <table class="function_list"> -->
+<table class="table table-bordered">
+	<tr>
+	<td class="name" nowrap><a href="#ClientClose">ClientClose</a></td>
+	<td class="summary">Client has closed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ClientConnect">ClientConnect</a></td>
+	<td class="summary">Client has connected to server.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ClientData">ClientData</a></td>
+	<td class="summary">Incoming Client data.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ClientError">ClientError</a></td>
+	<td class="summary">Client has thrown an error.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#ClientPing">ClientPing</a></td>
+	<td class="summary">Client has received a ping.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2><a name="Functions"></a>Functions</h2>
+    <dl class="function">
+    <dt>
+    <a name = "cancelGame"></a>
+    <span class="lead" style="font-weight:bolder;">cancelGame ()</span>
+    </dt>
+    <dd>
+    <em>Cancel a <code>Game</code> in a waiting state.   Useful when no games found.
+ You will revieve <a href="../modules/CoroniumGSClient.html#GameCancel">GameCancel</a>  when the game has been canceled.</em>
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">gs:cancelGame()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "connect"></a>
+    <span class="lead" style="font-weight:bolder;">connect (connection_table)</span>
+    </dt>
+    <dd>
+    <em>Connect to a listening game server instance. </em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">connection_table</span>
+         See <a href="../modules/CoroniumGSClient.html#connection_table">connection_table</a>
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "createGame"></a>
+    <span class="lead" style="font-weight:bolder;">createGame (players_max, game_criteria)</span>
+    </dt>
+    <dd>
+    <em>Create a new game for other players to connect to.
+ You can only use this method after the <a href="../modules/CoroniumGSClient.html#ClientConnect">ClientConnect</a>  client-side
+ event. Only call <a href="../modules/CoroniumGSClient.html#createGame">createGame</a>  OR <a href="../modules/CoroniumGSClient.html#joinGame">joinGame</a>  once in each client, not both.</em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">players_max</span>
+            <span class="types"><span class="type">int</span></span>
+         The maximal amount players
+ needed to start this game.
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">game_criteria</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Special criteria for other players to find the game with.
+ This is useful for private, friend to friend, or matchmaking games. The game_criteria
+ table supports a 'tag' table key that will be matched up with the <a href="../modules/CoroniumGSClient.html#joinGame">joinGame</a>  method.
+   This creates a way to direct clients to specific rooms. See also <a href="../modules/CoroniumGSClient.html#joinGame">joinGame</a> .
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"> <span class="keyword">function</span> onClientConnect( event )
+   <span class="comment">--== Create a 2 player game for others to join.
+</span>   gs:createGame( <span class="number">2</span> )
+   <span class="comment">--== Create a 2 player game with a custom 'tag' for the other players to join with.
+</span>   gs:createGame( <span class="number">2</span>, { tag = <span class="string">'custom_str'</span> } )
+ <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "disconnect"></a>
+    <span class="lead" style="font-weight:bolder;">disconnect ()</span>
+    </dt>
+    <dd>
+    <em>Closes the client connection. </em>
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">gs:disconnect()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getData"></a>
+    <span class="lead" style="font-weight:bolder;">getData ()</span>
+    </dt>
+    <dd>
+    <em>Get current stored game data from server.
+ Returned as table via the <a href="../modules/CoroniumGSClient.html#GameData">GameData</a>  event.</em>
+
+
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"> gs.events:on( <span class="string">"GameData"</span>, <span class="keyword">function</span>( event )
+   gs.p( event.data.game_data )
+ <span class="keyword">end</span> )
+ gs:getData()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getGameId"></a>
+    <span class="lead" style="font-weight:bolder;">getGameId ()</span>
+    </dt>
+    <dd>
+    <em>Get the client game id. </em>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The current game ID
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        No game id found.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> game_id = gs:getGameId()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getPlayerHandle"></a>
+    <span class="lead" style="font-weight:bolder;">getPlayerHandle ()</span>
+    </dt>
+    <dd>
+    <em>Get the client players connection handle. </em>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The players handle.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> player_handle = gs:getPlayerHandle()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getPlayerNum"></a>
+    <span class="lead" style="font-weight:bolder;">getPlayerNum ()</span>
+    </dt>
+    <dd>
+    <em>Get the client player position. </em>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">int</span></span>
+        The player position.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> player_num = gs:getPlayerNum()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "getPlayersInfo"></a>
+    <span class="lead" style="font-weight:bolder;">getPlayersInfo ()</span>
+    </dt>
+    <dd>
+    <em>Get the game players info data table.
+ This method can only be called after the <a href="../modules/CoroniumGSClient.html#GameCreate">GameCreate</a>
+ or <a href="../modules/CoroniumGSClient.html#GameJoin">GameJoin</a>  client-side event.</em>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        A table of game players meta data.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"> <span class="keyword">function</span> onGameJoin( event )
+  <span class="keyword">local</span> info_table = gs:getPlayersInfo()
+  <span class="keyword">for</span> key, value <span class="keyword">in</span> <span class="global">pairs</span>( info_table ) <span class="keyword">do</span>
+    p( value )
+  <span class="keyword">end</span>
+ <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isConnected"></a>
+    <span class="lead" style="font-weight:bolder;">isConnected ()</span>
+    </dt>
+    <dd>
+    <em>Check if the client is connected to the server </em>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        The client connection state.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> is_connected = gs:isConnected()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "isGameRunning"></a>
+    <span class="lead" style="font-weight:bolder;">isGameRunning ()</span>
+    </dt>
+    <dd>
+    <em>Check if the game is running and socket connected. </em>
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">bool</span></span>
+        The current state as boolean.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> state = gs:isGameRunning()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "joinGame"></a>
+    <span class="lead" style="font-weight:bolder;">joinGame (players_max, game_criteria)</span>
+    </dt>
+    <dd>
+    <em>Join a game that was created with the <a href="../modules/CoroniumGSClient.html#createGame">createGame</a>  method.
+ You can only use this method after the <a href="../modules/CoroniumGSClient.html#ClientConnect">ClientConnect</a>  client-side event.
+ Only call <a href="../modules/CoroniumGSClient.html#createGame">createGame</a>  OR <a href="../modules/CoroniumGSClient.html#joinGame">joinGame</a>  once in each client, but not both.</em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">players_max</span>
+            <span class="types"><span class="type">int</span></span>
+         Join a game with <code>players_max</code> players.
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">game_criteria</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         Special criteria to find game by.  This table
+ supports a 'tag' key which you can use to find specifically created games.
+ See also <a href="../modules/CoroniumGSClient.html#createGame">createGame</a> .
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"> <span class="keyword">function</span> onClientConnect( event )
+ <span class="comment">--== Find a 2 player game to join.
+</span>  gs:joinGame( <span class="number">2</span> )
+ <span class="comment">--== Find a 2 player game with a custom 'tag' to join.
+</span>  gs:joinGame( <span class="number">2</span>, { tag = <span class="string">'custom_str'</span> } )
+ <span class="keyword">end</span></pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "new"></a>
+    <span class="lead" style="font-weight:bolder;">new ([asGlobal=false])</span>
+    </dt>
+    <dd>
+    <em>Create a new game client instance. </em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">asGlobal</span>
+            <span class="types"><span class="type">boolean</span></span>
+         Automatically 'globalize' the module.
+ This includes the Pretty Printer 'p' method as well.
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">Client</span></span>
+        The newly created client.
+    </ol>
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"><span class="keyword">local</span> gs = <span class="global">require</span>( <span class="string">'gs.CoroniumGSClient'</span> ):new()</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "p"></a>
+    <span class="lead" style="font-weight:bolder;">p (tbl)</span>
+    </dt>
+    <dd>
+    <em>Pretty print table data. </em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">tbl</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The table data to print.
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">gs.p( some_table_data )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "reconnect"></a>
+    <span class="lead" style="font-weight:bolder;">reconnect ([reconnect_delay=3000])</span>
+    </dt>
+    <dd>
+    <em>Create a fresh connection to the server.   Useful after
+ a game has ended and you want to reconnect.</em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">reconnect_delay</span>
+            <span class="types"><span class="type">int</span></span>
+         Milliseconds delay before reconnecting.
+         (<em>default</em> 3000)
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">gs:reconnect( <span class="number">5000</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "send"></a>
+    <span class="lead" style="font-weight:bolder;">send (data_tbl)</span>
+    </dt>
+    <dd>
+    <em>Send table data to the server. </em>
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">data_tbl</span>
+            <span class="types"><a class="type" href="http://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         A table of data to send.
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">gs:send( { move_done = <span class="number">1</span> } )</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2><a name="Tables"></a>Tables</h2>
+    <dl class="function">
+    <dt>
+    <a name = "connection_table"></a>
+    <span class="lead" style="font-weight:bolder;">connection_table</span>
+    </dt>
+    <dd>
+    <em>The connection table used for the <a href="../modules/CoroniumGSClient.html#connect">connect</a>  method.
+ A <strong>key</strong> can be set on the server to help limit unwanted connections.
+ You must pass a matching key in the <strong>key</strong> parameter to
+ successfully pair the client to the server.
+ By enabling the <strong>ping</strong> parameter, you keep the client alive and connected.
+ This basically disables any client timeout settings on the server-side.
+ The <strong>handle</strong> parameter can be used as a username, player name, or any other
+ identifier.  Additional starting data can be sent as a simple table in
+ the <strong>data</strong> parameter.  You can retrieve this data with the
+ <strong>client:getPlayerData()</strong> method. See <a href="http://coronium.gs/server/modules/Client.html">Client</a>.</em>
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">host</span>
+         string The host address.
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">port</span>
+         int The host port.
+         (<em>default</em> 7173)
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">handle</span>
+         string String based identifier for the client.
+         (<em>default</em> server assigned)
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">data</span>
+         table A simple starting data table for the client.
+         (<em>default</em> nil)
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">key</span>
+         string The server pairing key.
+         (<em>default</em> 'abc')
+        </li>
+        <li><span class="parameter" style="font-size: 1.10em;">ping</span>
+         bool The ping flag.
+         (<em>default</em> false)
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example"> <span class="keyword">local</span> conn_tbl =
+ {
+  host = <span class="string">'ping.coronium.gs'</span>,
+  port = <span class="string">'7173'</span>,
+  handle = <span class="string">'Chris'</span>,
+  data = { color = <span class="string">"blue"</span>, fun = <span class="string">"Yes!"</span> },
+  key = <span class="string">'abc'</span>,
+  ping = <span class="keyword">true</span>
+ }
+gs:connect( conn_tbl )</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2><a name="Game_Events"></a>Game Events </h2>
+
+ You can listen for the following <strong>Game</strong> events.
+    <dl class="function">
+    <dt>
+    <a name = "GameCancel"></a>
+    <span class="lead" style="font-weight:bolder;">GameCancel</span>
+    </dt>
+    <dd>
+    <em>The game has been canceled.   State reset.</em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameCancel</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameCancel"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( <span class="string">"game canceled"</span> )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "GameCreate"></a>
+    <span class="lead" style="font-weight:bolder;">GameCreate</span>
+    </dt>
+    <dd>
+    <em>A game has been created.   <strong>This event will only
+be received by the client/player calling it</strong>.</em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameCreate</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameCreate"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "GameData"></a>
+    <span class="lead" style="font-weight:bolder;">GameData</span>
+    </dt>
+    <dd>
+    <em>Game data has been received. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameData</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameData"</span>, <span class="keyword">function</span>( event )
+	p( event.data.game_data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "GameDone"></a>
+    <span class="lead" style="font-weight:bolder;">GameDone</span>
+    </dt>
+    <dd>
+    <em>The game is finished.   See the server-side call <a href="http://coronium.gs/server/modules/Game.html#publishGameDone">publishGameDone</a> as well.</em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameDone</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameDone"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "GameJoin"></a>
+    <span class="lead" style="font-weight:bolder;">GameJoin</span>
+    </dt>
+    <dd>
+    <em>A player has joined the game. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameJoin</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameJoin"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "GameLeave"></a>
+    <span class="lead" style="font-weight:bolder;">GameLeave</span>
+    </dt>
+    <dd>
+    <em>A player has left the game. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameLeave</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameLeave"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "GameStart"></a>
+    <span class="lead" style="font-weight:bolder;">GameStart</span>
+    </dt>
+    <dd>
+    <em>The game has started.  All players present.</em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">GameStart</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"GameStart"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+</dl>
+    <h2><a name="Client_Events"></a>Client Events </h2>
+
+ You can listen for the following <strong>Client</strong> events.
+    <dl class="function">
+    <dt>
+    <a name = "ClientClose"></a>
+    <span class="lead" style="font-weight:bolder;">ClientClose</span>
+    </dt>
+    <dd>
+    <em>Client has closed. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">ClientClose</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"ClientClose"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( <span class="string">"client closed"</span> )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ClientConnect"></a>
+    <span class="lead" style="font-weight:bolder;">ClientConnect</span>
+    </dt>
+    <dd>
+    <em>Client has connected to server. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">ClientConnect</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"ClientConnect"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( <span class="string">"client connected"</span> )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ClientData"></a>
+    <span class="lead" style="font-weight:bolder;">ClientData</span>
+    </dt>
+    <dd>
+    <em>Incoming Client data. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">ClientData</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"ClientData"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( event.data.some_table_key )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ClientError"></a>
+    <span class="lead" style="font-weight:bolder;">ClientError</span>
+    </dt>
+    <dd>
+    <em>Client has thrown an error. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">ClientError</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"ClientError"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( <span class="string">"error: "</span> .. event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+    <dt>
+    <a name = "ClientPing"></a>
+    <span class="lead" style="font-weight:bolder;">ClientPing</span>
+    </dt>
+    <dd>
+    <em>Client has received a ping. </em>
+
+
+    <ul>
+        <li><span class="parameter" style="font-size: 1.10em;">ClientPing</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+    <h3>Usage:</h3>
+    <ul>
+        <pre class="example">
+gs.events:on( <span class="string">"ClientPing"</span>, <span class="keyword">function</span>( event )
+	<span class="global">print</span>( <span class="string">"timestamp: "</span> .. event.data )
+<span class="keyword">end</span> )</pre>
+    </ul>
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- end row -->
+<!-- <div class="row">
+<div class="col-md-12">
+<div class="footer" id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div>
+</div>
+</div> -->
+</div> <!-- id="container" -->
+</body>
+</html>

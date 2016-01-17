@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Coronium GS Client</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+    <link rel="stylesheet" href="http://bootswatch.com/simplex/bootstrap.min.css" type="text/css" />
+    <link rel="shortcut icon" href="/gs/imgs/coroniumgs-logo-16.png">
+</head>
+<style>
+body {
+    font-size: 1.70em;
+}
+</style>
+<body>
+
+<div class="container-fluid">
+
+
+<!-- Menu -->
+<div class="row">
+<div class="col-md-3" id="navigation">
+<br/>
+
+<div class="lead" style="font-size: 1.80em;"><a href="../index.html" style="font-weight:normal;">Coronium GS Client</a></div>
+
+
+
+<h4>Examples</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><strong>main-tpl.lua</strong></li>
+</ul>
+<h4>Modules</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><a href="../modules/CoroniumGSClient.html">CoroniumGSClient</a></li>
+  <li class="list-group-item"><a href="../modules/Utils.html">Utils</a></li>
+</ul>
+<h4>Topics</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><a href="../topics/development.md.html">development</a></li>
+  <li class="list-group-item"><a href="../topics/license.md.html">license</a></li>
+  <li class="list-group-item"><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+
+</div><!-- end navigation -->
+
+<div class="col-md-9" id="content">
+
+    <pre>
+<span class="comment">--======================================================================--
+</span><span class="comment">--== Coronium GS Client
+</span><span class="comment">--======================================================================--
+</span><span class="keyword">local</span> gs = <span class="global">require</span>( <span class="string">'gs.CoroniumGSClient'</span> ):new()
+<span class="keyword">local</span> p = gs.p <span class="comment">--== Pretty Printer
+</span><span class="comment">--======================================================================--
+</span><span class="comment">--== Game Code
+</span><span class="comment">--======================================================================--
+</span>
+<span class="comment">--== Game Code Goes Here
+</span>
+<span class="comment">--======================================================================--
+</span><span class="comment">--== Game Events
+</span><span class="comment">--======================================================================--
+</span><span class="keyword">function</span> onGameCreate( event )
+	p( event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onGameCancel( event )
+	p( event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onGameJoin( event )
+	p( event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onGameStart( event )
+	p( <span class="string">"game started"</span> )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onGameData( event )
+	p( event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onGameLeave( event )
+	p( event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onGameDone()
+	p( <span class="string">'Game Done'</span> )
+<span class="keyword">end</span>
+
+<span class="comment">--======================================================================--
+</span><span class="comment">--== Client Events
+</span><span class="comment">--======================================================================--
+</span><span class="keyword">local</span> <span class="keyword">function</span> onClientData( event )
+	p( event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> <span class="keyword">function</span> onClientConnect( event )
+	p( <span class="string">"client connected"</span> )
+
+	gs:createGame( <span class="number">1</span> )
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> <span class="keyword">function</span> onClientClose( event )
+	p( <span class="string">"client closed"</span> )
+<span class="keyword">end</span>
+
+<span class="keyword">local</span> <span class="keyword">function</span> onClientPing( event )
+	p( <span class="string">"timestamp: "</span> .. event.data )
+<span class="keyword">end</span>
+
+<span class="keyword">function</span> onClientError( event )
+	p( <span class="string">"error: "</span> .. event.data )
+<span class="keyword">end</span>
+<span class="comment">--======================================================================--
+</span><span class="comment">--== Game Handlers
+</span><span class="comment">--======================================================================--
+</span>gs.events:on( <span class="string">"GameCreate"</span>, onGameCreate )
+gs.events:on( <span class="string">"GameCancel"</span>, onGameCancel )
+gs.events:on( <span class="string">"GameJoin"</span>, onGameJoin )
+gs.events:on( <span class="string">"GameStart"</span>, onGameStart )
+gs.events:on( <span class="string">"GameData"</span>, onGameData )
+gs.events:on( <span class="string">"GameLeave"</span>, onGameLeave )
+gs.events:on( <span class="string">"GameDone"</span>, onGameDone )
+<span class="comment">--======================================================================--
+</span><span class="comment">--== Client Handlers
+</span><span class="comment">--======================================================================--
+</span>gs.events:on( <span class="string">"ClientData"</span>, onClientData )
+gs.events:on( <span class="string">"ClientConnect"</span>, onClientConnect )
+gs.events:on( <span class="string">"ClientClose"</span>, onClientClose )
+gs.events:on( <span class="string">"ClientPing"</span>, onClientPing )
+gs.events:on( <span class="string">"ClientError"</span>, onClientError )
+<span class="comment">--======================================================================--
+</span><span class="comment">--== Server Connection
+</span><span class="comment">--======================================================================--
+</span><span class="keyword">local</span> connection =
+{
+	host = <span class="string">'ping.coronium.gs'</span>,
+	port = <span class="number">7173</span>,
+	handle = <span class="string">"Nickname"</span>,
+	data =
+	{
+		color = <span class="string">"blue"</span>,
+	},
+	key = <span class="string">'abc'</span>,
+	ping = <span class="keyword">true</span>
+}
+gs:connect( connection )</pre>
+
+
+</div> <!-- id="content" -->
+</div> <!-- end row -->
+<!-- <div class="row">
+<div class="col-md-12">
+<div class="footer" id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div>
+</div>
+</div> -->
+</div> <!-- id="container" -->
+</body>
+</html>

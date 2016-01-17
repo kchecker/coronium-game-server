@@ -1,0 +1,376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Coronium GS Client</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+    <link rel="stylesheet" href="http://bootswatch.com/simplex/bootstrap.min.css" type="text/css" />
+    <link rel="shortcut icon" href="/gs/imgs/coroniumgs-logo-16.png">
+</head>
+<style>
+body {
+    font-size: 1.70em;
+}
+</style>
+<body>
+
+<div class="container-fluid">
+
+
+<!-- Menu -->
+<div class="row">
+<div class="col-md-3" id="navigation">
+<br/>
+
+<div class="lead" style="font-size: 1.80em;"><a href="../index.html" style="font-weight:normal;">Coronium GS Client</a></div>
+
+<h4>Contents</h4>
+<ul class="list-group">
+<li class="list-group-item"><a href="#Getting_Started">Getting Started </a></li>
+<li class="list-group-item"><a href="#Overview__main_lua">Overview: main.lua </a></li>
+<li class="list-group-item"><a href="#Connections">Connections </a></li>
+<li class="list-group-item"><a href="#Messaging">Messaging </a></li>
+<li class="list-group-item"><a href="#Events">Events </a></li>
+<li class="list-group-item"><a href="#Player_Names_Handles">Player Names/Handles </a></li>
+<li class="list-group-item"><a href="#Check_Game_State">Check Game State </a></li>
+<li class="list-group-item"><a href="#Pretty_Print">Pretty Print </a></li>
+<li class="list-group-item"><a href="#Using_Composer">Using Composer </a></li>
+<li class="list-group-item"><a href="#Demos">Demos </a></li>
+<li class="list-group-item"><a href="#Client_Docs">Client Docs </a></li>
+<li class="list-group-item"><a href="#Support">Support </a></li>
+</ul>
+
+
+<h4>Topics</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><strong>development</strong></li>
+  <li class="list-group-item"><a href="../topics/license.md.html">license</a></li>
+  <li class="list-group-item"><a href="../topics/readme.md.html">readme</a></li>
+</ul>
+<h4>Modules</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><a href="../modules/CoroniumGSClient.html">CoroniumGSClient</a></li>
+  <li class="list-group-item"><a href="../modules/Utils.html">Utils</a></li>
+</ul>
+<h4>Examples</h4>
+<ul class="$(kind=='Topics' and '' or 'nowrap' list-group">
+  <li class="list-group-item"><a href="../examples/main-tpl.lua.html">main-tpl.lua</a></li>
+</ul>
+
+</div><!-- end navigation -->
+
+<div class="col-md-9" id="content">
+
+
+<h1>Client-Side Development (alpha 2)</h1>
+
+<p><a name="Getting_Started"></a></p>
+<h2>Getting Started</h2>
+
+<h3>Spin Up An Instance</h3>
+
+<p>You can currently run <strong>Coronium GS</strong> via an Amazon AMI, or Ubuntu 14.04 64bit based install.  <a href="https://www.digitalocean.com/?refcode=cddeeddbbdb8">DigitalOcean</a> is the recommended cloud provider for Ubuntu based instances.</p>
+
+<p>The most current installation options can be found at the <a href="http://coronium.gs">Coronium GS</a> site.</p>
+
+<p><em>See also: <a href="http://coronium.gs/server/topics/development.md.html">Server side development</a></em></p>
+
+<h3>Download the source</h3>
+
+<p>Visit the bitbucket repo to <a href="https://bitbucket.org/develephant/coronium-gs-bundle">download the latest development bundle</a> for <strong>Coronium GS</strong>.</p>
+
+<p><a name="Overview__main_lua"></a></p>
+<h2>Overview: main.lua</h2>
+
+<p>The <strong>main.lua</strong> file that is included in the download (Client/main.lua) represents a template with all the possible client events included (see also: <a href="../examples/main-tpl.lua.html#">main-tpl.lua</a> ).  The file is more of a reference -- study it -- you can use it to do development testing before creating your app within a <a href="http://docs.coronalabs.com/api/library/composer/index.html">Composer</a> based structure.</p>
+
+<p>For a full listing of client events you can listen for see: <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#Events">Client-side Events</a></p>
+
+<p>At the very minimum, you need to require the <strong>Coronium GS</strong> Client into your file:</p>
+
+
+<pre>
+<span class="keyword">local</span> gs = <span class="global">require</span>( <span class="string">'gs.CoroniumGSClient'</span> ):new()
+</pre>
+
+<p><a name="Connections"></a></p>
+<h2>Connections</h2>
+
+<h3>Connecting</h3>
+
+<p>Open the <strong>Client/main.lua</strong> and enter your <strong>Coronium GS</strong> information at the bottom of the file, in a <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#connection_table">connection_table</a>:</p>
+
+
+<pre>
+<span class="keyword">local</span> connection =
+{
+    host = <span class="string">'your.gs.instance'</span>,
+    port = <span class="number">7173</span>,
+    handle = <span class="string">'SuperUser'</span>,
+    data = { facebookId = <span class="string">"123-books"</span> },
+    key = <span class="string">'abc'</span>,
+    ping = <span class="keyword">true</span>
+}
+gs:connect( connection )
+</pre>
+
+<p>For more information on the connect method see the <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#connect">connect</a>.</p>
+
+<h3>Reconnecting</h3>
+
+<p>To reconnect to the server, prehaps after a game has ended, or the client has dropped off for some reason, use the <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#reconnect">reconnect</a> client method.</p>
+
+<p>For example, to reconnect on a 'game done' event:</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onClientData( event )
+    <span class="keyword">if</span> event.data.game_done <span class="keyword">then</span> <span class="comment">--custom msg from server
+</span>      gs:reconnect()
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+gs.events:on( <span class="string">"ClientData"</span>, onClientData )
+</pre>
+
+<p><a name="Messaging"></a></p>
+<h2>Messaging</h2>
+
+<p>The <strong>Coronium GS</strong> model is built around messaging events.  To send a message to the server, you use the <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#send">send</a> method:</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onClientData( event )
+  gs:send( { msg = <span class="string">"Hello server"</span> } )
+<span class="keyword">end</span>
+gs.events:on( <span class="string">"ClientData"</span>, onClientData )
+</pre>
+
+<p>The messaging protocol is completely up to you.  Just be sure to wrap the data up in a table and then send it with the <strong>send</strong> method.</p>
+
+<p><a name="Events"></a></p>
+<h2>Events</h2>
+
+<p><strong>Coronium GS</strong> is an event driven system.  You listen for specific events and then perform some action depending on the data passed into these events. To listen for events, we need an event handler, and the listener.</p>
+
+<h3>GameStart</h3>
+
+<p>The <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#GameStart">GameStart</a> event is called all the players have connected together are ready to start the game.  We can listen for the event like so:</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onGameStart( event )
+    <span class="global">print</span>( <span class="string">"game started!"</span> )
+<span class="keyword">end</span>
+gs.events:on( <span class="string">'GameStart'</span>, onGameStart )
+</pre>
+
+<p>This event contains keyed data that we can use.  Some of the results passed back from the GameStart event are:</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onGameStart( event )
+  <span class="keyword">local</span> d = event.data
+
+  <span class="keyword">local</span> player_name = d.player_name <span class="comment">-- The players name.
+</span>  <span class="keyword">local</span> player_num = d.player_num <span class="comment">-- The players position.
+</span>  <span class="keyword">local</span> players_info = d.players_info <span class="comment">-- An array of each players info.
+</span>
+  <span class="keyword">for</span> _, player <span class="keyword">in</span> <span class="global">ipairs</span>( players_info ) <span class="keyword">do</span>
+     p( player.player_num .. <span class="string">": "</span> .. player.player_name )
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+gs.events:on( <span class="string">"GameStart"</span>, onGameStart )
+</pre>
+
+<p>Use the <a href="http://coronium.gs/client/topics/development.md.html#Pretty_Print">Pretty Print</a> to see the exact results.</p>
+
+<h3>ClientData</h3>
+
+<p>The 'work horse' of <strong>Coronium GS</strong>, the <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#ClientData">ClientData</a> event is called when the client has recieved data from the server.  You can capture and process this data to make your game do stuff.</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onClientData( event )
+  <span class="keyword">if</span> event.data.move_player <span class="keyword">then</span>
+      player.x = event.data.x
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+gs.events:on( <span class="string">"ClientData"</span>, onClientData )
+</pre>
+
+<h3>GameData</h3>
+
+<p>The <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#GameData">GameData</a> event is another important event that delivers the current persistent 'game object'.</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onGameData( event )
+  p( event.data )
+<span class="keyword">end</span>
+gs.events:on( <span class="string">"GameData"</span>, onGameData )
+</pre>
+
+<p>You can also specifically call for the game data object with the <strong>getData</strong> method:</p>
+
+
+<pre>
+<span class="comment">--== Set up the listener
+</span><span class="keyword">local</span> <span class="keyword">function</span> onGameData( event )
+  p( event.data )
+<span class="keyword">end</span>
+gs.events:on( <span class="string">"GameData"</span>, onGameData )
+
+<span class="comment">--== Tell the server to send down data object
+</span>gs:getData()
+</pre>
+
+<p>For a full listing of client events you can listen for see: <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#Events">Client-side Events</a></p>
+
+<h3>Custom Events</h3>
+
+<p>The <strong>Coronium GS</strong> Client comes packaged with the awesome <a href="https://github.com/daveyang/EventDispatcher">EventDispatcher</a> module for Corona SDK.</p>
+
+<p>You can use this module to create your own event emitters, just like the core <strong>Coronium GS</strong> client module.</p>
+
+<p><strong>my_module.lua</strong></p>
+
+<pre>
+<span class="keyword">local</span> dispatcher = <span class="global">require</span>( <span class="string">'gs.EventDispatcher'</span> )
+<span class="keyword">local</span> my_module = {}
+
+my_module.events = dispatcher()
+
+<span class="keyword">function</span> my_module:doSomething()
+  self.events:emit( <span class="string">"DidSomething"</span>, { msg = <span class="string">"Oops, I did it again."</span> } )
+<span class="keyword">end</span>
+
+<span class="keyword">return</span> my_module
+</pre>
+
+<p><strong>other.lua</strong></p>
+
+
+<pre>
+<span class="keyword">local</span> my_module = <span class="global">require</span>( <span class="string">'my_module'</span> )
+
+my_module.events:on( <span class="string">"DidSomething"</span>, <span class="keyword">function</span>( event )
+  <span class="global">print</span>( event.data.msg )
+<span class="keyword">end</span>)
+
+my_module:doSomething()
+
+<span class="comment">--== Outputs: 'Oops, I did it again.'
+</span>
+</pre>
+
+<p><a name="Player_Names_Handles"></a></p>
+<h2>Player Names/Handles</h2>
+
+<p>You can set a player name or "handle" in the <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#connection_table">connection table</a>:</p>
+
+
+<pre>
+<span class="keyword">local</span> conn_tbl =
+{
+host = <span class="string">'ping.coronium.gs'</span>,
+port = <span class="string">'7173'</span>,
+handle = <span class="string">'Chris'</span>, <span class="comment">-- Handle/Player Name
+</span>key = <span class="string">'abc'</span>
+}
+gs:connect( conn_tbl )
+</pre>
+
+<p>The "handle" can be any string identifier you'd like, and can be accessed with the server-side <a href="http://coronium.gs/server/modules/Client.html#getPlayerHandle">Client:getPlayerHandle</a>, as well as the client-side <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#getPlayerHandle">getPlayerHandle</a>.</p>
+
+<p>On the server-side:</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onClientData( client, data )
+  <span class="keyword">local</span> handle = client:getPlayerHandle()
+<span class="keyword">end</span>
+</pre>
+
+<p>On the client-side:</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> onClientData( event )
+  <span class="keyword">local</span> handle = gs:getPlayerHandle()
+<span class="keyword">end</span>
+</pre>
+
+<p><a name="Check_Game_State"></a></p>
+<h2>Check Game State</h2>
+
+<p>You can check if the game is currently in a running state with the <a href="http://coronium.gs/client/modules/CoroniumGSClient.html#isGameRunning">isGameRunning</a> method.</p>
+
+
+<pre>
+<span class="keyword">local</span> <span class="keyword">function</span> checkGameState()
+  <span class="keyword">return</span> gs:isGameRunning() <span class="comment">--true or false
+</span><span class="keyword">end</span>
+
+<span class="keyword">if</span> checkGameState() <span class="keyword">then</span>
+    gs:send( { move = <span class="number">1</span>, pos = { <span class="number">10</span>, <span class="number">10</span> } } )
+<span class="keyword">else</span>
+  <span class="global">print</span>( <span class="string">"Game no longer running"</span> )
+<span class="keyword">end</span>
+</pre>
+
+<p><a name="Pretty_Print"></a></p>
+<h2>Pretty Print</h2>
+
+<p>The <strong>Coronium GS</strong> client has a built in pretty printer for incoming table data.  This makes it real easy to visualize the incoming data for debugging purposes.  To simplify its usage, you can 'localize' it as the method <strong>p</strong> -- which is the default on the server -- as follows:</p>
+
+
+<pre>
+<span class="keyword">local</span> gs = <span class="global">require</span>( <span class="string">'gs.CoroniumGSClient'</span> ):new()
+<span class="keyword">local</span> p = gs.p <span class="comment">--== Pretty Printer
+</span>
+<span class="comment">--== General usage
+</span>p( some_table_data )
+
+<span class="comment">--== As debugging callback
+</span>gs.events:on( <span class="string">"ClientData"</span>, p )
+</pre>
+
+<p><a name="Using_Composer"></a></p>
+<h2>Using Composer</h2>
+
+<p>When using the <strong>Coronium GS</strong> client in a <a href="http://docs.coronalabs.com/api/library/composer/index.html">Composer</a> Corona SDK based project, you need to 'globalize' the module.</p>
+
+<p>To see a working example, open the demo project in the <a href="https://bitbucket.org/develephant/coronium-gs-bundle">downloaded development bundle</a> located in the <strong>demos/GS Composer Starter</strong> directory.</p>
+
+<p><a name="Demos"></a></p>
+<h2>Demos</h2>
+
+<p>You can find a handful of demos in the <a href="https://bitbucket.org/develephant/coronium-gs-bundle">development bundle download</a>, in the <strong>demos</strong> folder.  By studying those files, you can see more clearly how Coronium GS works in practice.</p>
+
+<p><a name="Client_Docs"></a></p>
+<h2>Client Docs</h2>
+
+<p>For a full listing of all available client methods and events, please see the <a href="http://coronium.gs/client/index.html">Client Side Documentation</a>.</p>
+
+<p><a name="Support"></a></p>
+<h2>Support</h2>
+
+<p>For support, tips, and community involvement, please visit the <a href="http://forums.coronium.io/categories/coronium-gs">Coronium Cloud Community</a>.</p>
+
+<p><a href="http://coronium.io/gs">Coronium GS</a> &copy;2014 Chris Byerley <a href="http://twitter.com/develephant">@develephant</a> | <a href="http://develephant.net">develephant.net</a></p>
+
+
+</div> <!-- id="content" -->
+</div> <!-- end row -->
+<!-- <div class="row">
+<div class="col-md-12">
+<div class="footer" id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.2</a></i>
+</div>
+</div>
+</div> -->
+</div> <!-- id="container" -->
+</body>
+</html>
