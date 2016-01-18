@@ -10,11 +10,11 @@ This repo contains the server, which is hosted on Ubuntu 14.04 running [Luvit.io
 
 ## Docs
 
-You can find the latest docs by clicking [here](http://coronium.io/gs)
+You can find the archived docs by clicking [here](http://coronium.io/gs)
 
 ## Amazon EC2
 
-There are still 3 Amazon AMIs that you can launch with a pre-installed GS. These images will available indefinitely.
+There are still 3 Amazon AMIs that you can launch with a pre-installed GS. These images will be available indefinitely.
 
 - [North America](https://console.aws.amazon.com/ec2/v2/home?region=us-east-1#LaunchInstanceWizard:ami=ami-624afb0a)
 - [South America](https://console.aws.amazon.com/ec2/v2/home?region=sa-east-1#LaunchInstanceWizard:ami=ami-f9b90ce4)
