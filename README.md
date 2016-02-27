@@ -10,7 +10,7 @@ This repo contains the server, which is hosted on Ubuntu 14.04 running [Luvit.io
 
 ## Docs
 
-You can find the archived docs by clicking [here](http://coronium.io/gs)
+You can find the archived docs by clicking [here](http://gs.coronium.io)
 
 ## Amazon EC2
 
